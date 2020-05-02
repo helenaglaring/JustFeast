@@ -29,7 +29,7 @@ CREATE TABLE "order"
     order_id SERIAL PRIMARY KEY NOT NULL,
     user_id integer NOT NULL,
     order_date date DEFAULT now(),
-    status character varying (255),
+    status character varying (255)
 );
 
 
@@ -88,7 +88,7 @@ ALTER TABLE lineitem
     ADD CONSTRAINT lineitem_order_id_fkey FOREIGN KEY (order_id)
         REFERENCES public."order" (order_id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        tON DELETE CASCADE,
+        ON DELETE CASCADE,
     ADD CONSTRAINT lineitem_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.product (product_id) MATCH SIMPLE
         ON UPDATE NO ACTION
