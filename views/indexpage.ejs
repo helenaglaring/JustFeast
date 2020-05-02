@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+</html>
+
+
+<%- include('layouts/header'); -%>
+
+<body class="page">
+
+    <%- include('layouts/navbar'); -%>
+
+
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <%- include('layouts/messages'); -%>
+        </div>
+    </div>
+
+
+    <div class="page-header">
+        <h2> Velkommen til JustFeast! </h2>
+    </div>
+    <p> Du skal være logget ind for at kunne bruge vores bestillingssystem </p>
+
+
+    <a href="/signup" class="text-center new-account">
+        <button class="btn btn-primary"> Signup </button>
+    </a>
+
+
+    <a href="/login" class="text-center new-account">
+        <button class="btn btn-primary"> Login  </button>
+    </a>
+
+
+    <!-- Scripts -->
+    <%- include('layouts/scripts'); -%>
+
+</body>
+</html>

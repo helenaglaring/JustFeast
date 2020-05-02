@@ -1,0 +1,22 @@
+
+<% if(messages){ %>
+
+    <% if(messages.success != null && messages.success.length > 0){ %>
+        <ul class="list-group"></ul>
+        <!-- loop through each error -->
+        <% for (let i = 0; i < messages.success.length; i++) { %>
+            <li class="list-group-item list-group-item-success"><%= messages.success[i] %></li> <!-- make succes green -->
+        <% } %>
+        </ul>
+    <% } %>
+<% } %>
+
+<% if(messages.error != null && messages.error.length > 0){ %>
+    <ul class="list-group"></ul>
+    <!-- loop through each error -->
+    <% for (var i = 0; i < messages.error.length; i++) { %>
+        <li class="list-group-item list-group-item-danger"><%= messages.error[i] %></li> <!-- make error red -->
+    <% } %>
+    </ul>
+
+<% } %>

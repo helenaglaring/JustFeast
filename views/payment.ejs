@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+</html>
+
+
+<%- include('layouts/header'); -%>
+
+
+
+<!------------------------------ Payment form ---------------------------------------------->
+<body class="page">
+<%- include('layouts/navbar'); -%>
+
+
+    <div class="page-header">
+        <h2> Betalingsoplysninger </h2>
+    </div>
+
+    <%- include('layouts/delete-cart'); -%>
+
+
+    <%- include('layouts/messages'); -%>
+    <hr>
+    <div class="container" id="total-amount">
+        <!-- Total price for lineitems in cart -->
+        <p> Pris for alle varer i kurv: <%= cart.totalPrice-cart.deliveryFee %> </p> <!--sumCartItems-->
+
+        <!-- If delivery is selected show deliveryfee-->
+        <% if (cart.deliveryFee > 0) { %>
+        <p> Leveringsgebyr:  <%= cart.deliveryFee %></p>
+        <% } %>
+        <!-- Total -->
+        <p> Total: <%= cart.totalPrice %> </p>
+
+        <span id="totalPriceWithDiscount">  </span>
+    </div>
+    <hr>
+
+
+    <div class="container col-md-4 col-md-offset-4">
+        <h3>Her betales der for din ordre:</h3>
+
+        <form id="paymentForm"  action="/checkout/payment" method="post">
+            <div>
+                <label for="cardHoldersName"><b> Kortholders navn </b></label> <br>
+                <input class="form-control form-control-sm" value="" id="cardHoldersName" placeholder="Indtast kortholders navn"><br>
+                <p id="err_cardHoldersName" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+                <label for="cardNumber"><b> Kortnummer: </b></label> <br>
+                0000000000000000
+                <input class="form-control form-control-sm" type="number" value="" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX"><br>
+                <p id="err_cardNumber" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+
+                <label for="expiryDateMonth"><b> Udløbsdato: </b></label> <br>
+
+                <input class="form-control-sm" value="" type="number" id="expiryDateMonth" min="01" max="12" placeholder="MM" onblur="Payment.correctDates()">
+                <p id="err_expiryDateMonth" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+                <label for="expiryDateYear"><b> </b></label>
+                <input class="form-control-sm" value="" type="number" id="expiryDateYear" min="19" max="30" placeholder="YY" onblur="Payment.correctDates()">
+                <p id="expiryDateYear" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+                <br>
+
+                <label for="CVC"><b> CVC </b></label> <br>
+                <input class="form-control-sm" value="" id="CVC" placeholder="Ex. XXX "><br>
+                <p id="err_CVC" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+
+            </div>
+            <br>
+            <button class="btn btn-success" id="paymentButton"> Bekræft betaling </button>
+
+        </form>
+    </div>
+
+
+    <!-- Scripts -->
+    <%- include('layouts/scripts'); -%>
+    <script type="text/javascript" src="/js/payment.js"></script>
+    <script type="text/javascript" src="/js/deleteCart.js"></script>
+
+</body>
+
+
+</html>
+
+
+

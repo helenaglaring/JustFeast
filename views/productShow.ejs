@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+</html>
+
+
+<%- include('layouts/header'); -%>
+
+<body class="page">
+
+<%- include('layouts/navbar'); -%>
+
+<div class="page-header">
+    <h2> Menu </h2>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <%- include('layouts/messages'); -%>
+    </div>
+</div>
+
+
+
+<hr>
+<!-------------------- Products ------------------------------->
+<div class="table-wrapper">
+    <% if (products.length > 0) {%>
+        <table class="table table-hovered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Produkt</th>
+                <th scope="col">Pris</th>
+                <th scope="col">Tilføj</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% products.forEach((product) => { %>
+                    <tr>
+                        <th scope="row"><%= product.product_id %></th>
+                        <td> <%= product.product_name %></td>
+                        <td><%= product.product_price%> Kr.</td>
+                        <td>
+                            <button id="<%= product.product_id%>" class="btn btn-sm btn-primary addLineItem">Tilføj til kurv</button>
+                        </td>
+                </tr>
+
+            <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p class="text-center"> Ingen produkter fundet.</p>
+    <% } %>
+</div>
+
+
+<hr>
+<!-------------------- Cart ------------------------------->
+<%- include('cart'); -%>
+
+
+
+<!-------------------- Scripts ------------------------------->
+<%- include('layouts/scripts'); -%>
+<!---->
+<script type="text/javascript" src="/js/lineItem.js"></script>
+
+</body>
+</html>

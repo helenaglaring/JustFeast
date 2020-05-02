@@ -1,0 +1,68 @@
+
+<!----- Cart ------------------------------------------------------------------------------------------------------>
+
+<h2>KURV</h2>
+
+<!-------------------- Products ------------------------------->
+<div class="table-wrapper">
+    <% if (lineitems.length > 0) {%>
+        <table class="table table-hovered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Produkt</th>
+                <th scope="col">Antal</th>
+                <th scope="col">Pris </th>
+                <th scope="col"> Tilføj </th>
+                <th scope="col"> Fjern </th>
+                <th scope="col"> Fjern alle </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% lineitems.forEach((lineitem, index) => { %>
+                <% if (lineitem.qty > 0) {%>
+                <tr>
+                    <th scope="row"><%= lineitem.product.product_name %></th>
+                    <td> <%= lineitem.qty %> X</td>
+                    <td><%= lineitem.price %>  </td>
+                    <td>
+                        <!--<a href="/lineitems/add/<%#= lineitem.product.product_id %>" class="btn btn-sm btn-success" role="button">+</a>-->
+                        <button id="<%= lineitem.product.product_id%>" class="btn btn-sm btn-success addLineItem">+</button>
+                    </td>
+                    <td>
+                        <button id="<%= lineitem.product.product_id%>" class="btn btn-sm btn-danger removeLineItem">-</button>
+                        <!--<a href="/lineitems/delete-one/<%#= lineitem.product.product_id%>" class="btn btn-sm btn-danger" role="button">-</a>-->
+                    </td>
+
+                    <td>
+                        <button id="<%= lineitem.product.product_id%>" class="btn btn-sm btn-danger deleteLineItems">X</button>
+                    </td>
+                </tr>
+                <% } %>
+            <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p class="text-center"> Ingen produkter fundet.</p>
+    <% } %>
+</div>
+
+
+
+<!----- Cart Total  ----->
+<section>
+    <h3> PRIS FOR KURV I ALT </h3>
+    <div>
+        <p id="totalPriceWithDiscount"> Total pris: <%= totalPrice %> KR.</p>
+    </div>
+
+    <div id="order_button_div">
+        <a href="/checkout/delivery-method"> <button class="btn btn-success" id="order_button"> Bestil </button></a>
+    </div>
+
+
+</section>
+
+
+
+

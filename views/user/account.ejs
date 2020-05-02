@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+</html>
+
+
+<%- include('../layouts/header'); -%>
+
+<body class="page">
+
+<%- include('../layouts/navbar'); -%>
+
+<div class="page-header">
+    <h2> User Account </h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <%- include('../layouts/messages'); -%>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <% if (user.user_id!== null) {%>
+
+        <table class="table table-hovered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Fornavn </th>
+                <th scope="col"> Efternavn </th>
+                <th scope="col"> Email </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"><%=user.first_name%></th>
+                    <td><%=user.last_name%></td>
+                    <td><%=user.email%></td>
+                    <% if (user.phone !== null) {%>
+                    <td><%=user.phone%></td>
+                    <% } %>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <button id="<%=user.user_id%>" class="btn btn-sm btn-danger deleteUser"> Slet bruger </button>
+
+    <% } else { %>
+        <p class="text-center"> Ingen bruger logget ind </p>
+    <% } %>
+</div>
+
+
+
+<!-- Scripts -->
+<%- include('../layouts/scripts'); -%>
+<script type="text/javascript" src="/js/deleteUser.js"></script>
+
+</body>
+</html>

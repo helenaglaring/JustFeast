@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+</html>
+
+
+<%- include('layouts/header'); -%>
+
+<body class="page">
+
+    <%- include('layouts/navbar'); -%>
+
+    <div class="page-header">
+        <h2> Leverings/afhentnings-oplysninger </h2>
+    </div>
+
+    <%- include('layouts/delete-cart'); -%>
+
+    <!--------------------------------------Delivery---------------------------------------------->
+
+    <div class="row">
+
+        <div class="col-md-4 col-md-offset-4">
+        <%- include('layouts/messages'); -%>
+
+        <form class="form-signup" id="deliveryForm" action="/checkout/delivery-method" method="POST"><!--action="/order/delivery-method" method="post"-->
+            <div class="form-group">
+                <span class="product_name"> Vælg levering eller afhentning:  </span>
+                <br>
+                <input type="radio" name="delivery" id="yes-delivery" value="true"  /> Tilføj levering (45 kr.) <br>
+                <input type="radio" name ="delivery" id="no-delivery" value="false"/> Afhent selv bestilling <br>
+                <p id="err_del_method" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="selectedTime">Vælg afhentning-/leveringstidspunkt:</label>
+                <input type="time" id="selectedTime" name="selectedTime" min="10:00" max="20:00" required>
+                <small>Vælg tidspunkt mellem 10:00 og 20:00 </small>
+                <br>
+                <p id="err_del_time" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+                <br>
+
+            </div>
+            <!--Submit button med eventlistener der validerer form før den sumbitter-->
+            <button type="submit" id="submit-delivery-information" class="btn btn-lg btn-primary">submit</button>
+        </form>
+
+            <p id="delivery-registered" style="color: red; margin-top: 1px; margin-bottom: 1px;"></p>
+        </div>
+    </div>
+    <br/>
+    <!-------------------------------------------------------------------------------------------------------------->
+
+    <!-- Scripts -->
+    <%- include('layouts/scripts'); -%>
+    <script type="text/javascript" src="/js/delivery.js"></script>
+    <script type="text/javascript" src="/js/deleteCart.js"></script>
+
+</body>
+</html>
