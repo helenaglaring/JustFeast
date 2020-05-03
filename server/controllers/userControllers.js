@@ -66,7 +66,7 @@ module.exports = {
 
                 // Omdirigerer til user account side når bruger er logget succesfuldt ind
                 req.flash('success', `Du er nu logget ind.`);
-                res.redirect('account');
+                res.redirect('account/' + result.user.user_id);
             })
             .catch(function (errors) {
                 console.log(errors);
@@ -78,28 +78,46 @@ module.exports = {
 
     // Account page call: GET route for user account
     account: (req, res) => {
-        res.render('user/account', {
-            title: 'Account',
-            user: req.session.user,
-            messages: {
-                success: req.flash('success'),
-                error: req.flash('error')
-            }
-        })
+        User.findOneById(req.params.id)
+            .then(user => {
+                console.log(user);
+                res.render('user/account', {
+                    title: 'Account',
+                    user: user,//req.session.user
+                    messages: {
+                        success: req.flash('success'),
+                        error: req.flash('error')
+                    }
+                })
+            })
+            .catch(err => {
+                console.log(err);
+                req.flash('error', err);
+                res.redirect('/');
+            })
     },
-
     // GET route for user logout
     // Sletter også session
     logout: (req, res) => {
         // Når bruger logger ud skal den nuværende kurv (order med status 'cart') også slettes fra db.
         // Derfor bruges funktionen deleteOne der sletter order-record i order'tabel ud fra order_id.
-        Order.deleteOne(req.session.order.order_id)
-            .then(result => {
-                console.log("Kurv slettes");
-                console.log(result);
-            })
-            .catch(err => console.log(err));
 
+        // Deklarerer værdien gemt i session.order i variablen "order", hvis ikke der er gemt noget
+        // Er der endnu ikke oprettet en ordre til kundens 'cart' og derfor sættes værdien til et tomt objkt.
+        let order = req.session.order ? req.session.order : {};
+
+        // Bruger if-statement til at undersøge om der er oprettet en order med status som 'cart' i db.
+        // Hvis order=== undefined er der endnu ikke oprettet et cart, og derfor kommer man ikke ind i if-statement
+        if (!order === undefined) {
+            // Sørger for at slette order med status 'kurv' i db hvis kunde logger ud inden at have gennemført ordre.
+            console.log("Slet kurv" + order.order_id);
+            Order.deleteOne(req.session.order.order_id)
+                .then(result => {
+                    console.log("Kurv slettes");
+                    console.log(result);
+                })
+                .catch(err => console.log(err));
+        }
         // Sletter jwt-token i cookies og session.
         res.clearCookie("jwt-token");
         req.flash('success', "Logged out. See you soon!");
